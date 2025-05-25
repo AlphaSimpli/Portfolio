@@ -34,19 +34,30 @@
                     <span>Portfolio</span>
                 </a>
             </div>
+            <div class="nav-buttons">
+                <button id="theme-toggle" class="nav-button" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="language-toggle" class="nav-button" aria-label="Change language">
+                    <i class="fas fa-globe"></i>
+                </button>
+            </div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home" id="nav-home">Home</a></li>
+                <li><a href="#about" id="nav-about">About</a></li>
+                <li><a href="#projects" id="nav-projects">Projects</a></li>
+                <li><a href="#contact" id="nav-contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1>Alpha Ousmane Diallo</h1>
-            <p class="hero-subtitle">AI Enthusiast & Computer Science Student at Université du Québec en Outaouais</p>
+            <div class="profile-image-container">
+                <img src="profile.jpg" alt="Professional headshot" class="profile-image">
+            </div>
+            <h1 id="hero-title">Alpha Ousmane Diallo</h1>
+            <p class="hero-subtitle" id="hero-subtitle">AI Enthusiast & Computer Science Student at Université du Québec en Outaouais</p>
             <div class="hero-stats">
                 <div class="stat-item">
                     <span class="stat-number">2+</span>
@@ -73,12 +84,12 @@
     </section>
 
     <section id="about" class="about">
-        <h2>About Me</h2>
+        <h2 id="about-title">About Me</h2>
         <div class="about-content">
             <div class="about-text">
-                <p>Hello! I'm Alpha Ousmane Diallo, a passionate Computer Science student at Université du Québec en Outaouais. My focus is on Artificial Intelligence and I'm dedicated to exploring the fascinating world of AI and its applications. I love turning complex problems into innovative solutions through technology.</p>
+                <p id="about-text">Hello! I'm Alpha Ousmane Diallo, a passionate Computer Science student at Université du Québec en Outaouais. My focus is on Artificial Intelligence and I'm dedicated to exploring the fascinating world of AI and its applications. I love turning complex problems into innovative solutions through technology.</p>
                 <div class="skills">
-                    <h3>Skills</h3>
+                    <h3 id="skills-title">Skills</h3>
                     <ul>
                         <li>Python</li>
                         <li>Artificial Intelligence</li>
@@ -93,7 +104,7 @@
     </section>
 
     <section id="projects" class="projects">
-        <h2>My Projects</h2>
+        <h2 id="projects-title">My Projects</h2>
         <div class="project-grid">
             <div class="project-card">
                 <h3>AI Project</h3>
@@ -127,13 +138,13 @@
     </section>
 
     <section id="contact" class="contact">
-        <h2>Get in Touch</h2>
+        <h2 id="contact-title">Get in Touch</h2>
         <div class="contact-content">
             <form id="contact-form">
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <textarea name="message" placeholder="Message" required></textarea>
-                <button type="submit" class="submit-button">Send Message</button>
+                <input type="text" name="name" id="name-input" placeholder="Name" required>
+                <input type="email" name="email" id="email-input" placeholder="Email" required>
+                <textarea name="message" id="message-input" placeholder="Message" required></textarea>
+                <button type="submit" class="submit-button" id="send-button">Send Message</button>
             </form>
             <div id="form-message"></div>
             <div class="social-links">

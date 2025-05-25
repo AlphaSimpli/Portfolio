@@ -79,38 +79,154 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Add typing animation to hero text
-const heroTitle = document.querySelector('.hero-content h1');
-const heroText = document.querySelector('.hero-content p');
+function startTypingAnimation() {
+    const heroTitle = document.querySelector('.hero-content h1');
+    const heroText = document.querySelector('.hero-content p');
 
-if (heroTitle && heroText) {
-    const titleText = heroTitle.textContent;
-    const descText = heroText.textContent;
-    
-    heroTitle.textContent = '';
-    heroText.textContent = '';
-    
-    let titleIndex = 0;
-    let descIndex = 0;
-    
-    function typeTitle() {
-        if (titleIndex < titleText.length) {
-            heroTitle.textContent += titleText.charAt(titleIndex);
-            titleIndex++;
-            setTimeout(typeTitle, 100);
-        } else {
-            setTimeout(typeDesc, 500);
+    if (heroTitle && heroText) {
+        const titleText = heroTitle.textContent;
+        const descText = heroText.textContent;
+        
+        // Clear the text content
+        heroTitle.textContent = '';
+        heroText.textContent = '';
+        
+        let titleIndex = 0;
+        let descIndex = 0;
+        
+        function typeTitle() {
+            if (titleIndex < titleText.length) {
+                heroTitle.textContent += titleText.charAt(titleIndex);
+                titleIndex++;
+                setTimeout(typeTitle, 100);
+            } else {
+                setTimeout(typeDesc, 500);
+            }
+        }
+        
+        function typeDesc() {
+            if (descIndex < descText.length) {
+                heroText.textContent += descText.charAt(descIndex);
+                descIndex++;
+                setTimeout(typeDesc, 50);
+            }
+        }
+        
+        // Start the animation
+        setTimeout(typeTitle, 1000);
+    }
+}
+
+// Start typing animation on page load
+document.addEventListener('DOMContentLoaded', startTypingAnimation);
+
+// Update language function
+function updateLanguage() {
+    const elements = {
+        'nav-home': translations[currentLang].home,
+        'nav-about': translations[currentLang].about,
+        'nav-projects': translations[currentLang].projects,
+        'nav-contact': translations[currentLang].contact,
+        'hero-title': translations[currentLang].heroTitle,
+        'hero-subtitle': translations[currentLang].heroSubtitle,
+        'about-title': translations[currentLang].aboutTitle,
+        'about-text': translations[currentLang].aboutText,
+        'skills-title': translations[currentLang].skills,
+        'projects-title': translations[currentLang].projectsTitle,
+        'contact-title': translations[currentLang].contactTitle,
+        'name-input': translations[currentLang].namePlaceholder,
+        'email-input': translations[currentLang].emailPlaceholder,
+        'message-input': translations[currentLang].messagePlaceholder,
+        'send-button': translations[currentLang].sendButton
+    };
+
+    for (const [id, text] of Object.entries(elements)) {
+        const element = document.getElementById(id);
+        if (element) {
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.placeholder = text;
+            } else {
+                element.textContent = text;
+            }
         }
     }
-    
-    function typeDesc() {
-        if (descIndex < descText.length) {
-            heroText.textContent += descText.charAt(descIndex);
-            descIndex++;
-            setTimeout(typeDesc, 50);
-        }
+
+    // Restart typing animation after language change
+    startTypingAnimation();
+}
+
+// Language Toggle
+const languageToggle = document.getElementById('language-toggle');
+const translations = {
+    en: {
+        home: 'Home',
+        about: 'About',
+        projects: 'Projects',
+        contact: 'Contact',
+        heroTitle: 'Alpha Ousmane Diallo',
+        heroSubtitle: 'AI Enthusiast & Computer Science Student at Université du Québec en Outaouais',
+        aboutTitle: 'About Me',
+        aboutText: 'Hello! I\'m Alpha Ousmane Diallo, a passionate Computer Science student at Université du Québec en Outaouais. My focus is on Artificial Intelligence and I\'m dedicated to exploring the fascinating world of AI and its applications. I love turning complex problems into innovative solutions through technology.',
+        skills: 'Skills',
+        projectsTitle: 'My Projects',
+        contactTitle: 'Get in Touch',
+        namePlaceholder: 'Name',
+        emailPlaceholder: 'Email',
+        messagePlaceholder: 'Message',
+        sendButton: 'Send Message'
+    },
+    fr: {
+        home: 'Accueil',
+        about: 'À propos',
+        projects: 'Projets',
+        contact: 'Contact',
+        heroTitle: 'Alpha Ousmane Diallo',
+        heroSubtitle: 'Passionné d\'IA & Étudiant en Informatique à l\'Université du Québec en Outaouais',
+        aboutTitle: 'À propos de moi',
+        aboutText: 'Bonjour! Je suis Alpha Ousmane Diallo, un étudiant passionné en Informatique à l\'Université du Québec en Outaouais. Je me concentre sur l\'Intelligence Artificielle et je suis dédié à explorer le monde fascinant de l\'IA et ses applications. J\'adore transformer des problèmes complexes en solutions innovantes grâce à la technologie.',
+        skills: 'Compétences',
+        projectsTitle: 'Mes Projets',
+        contactTitle: 'Contactez-moi',
+        namePlaceholder: 'Nom',
+        emailPlaceholder: 'Email',
+        messagePlaceholder: 'Message',
+        sendButton: 'Envoyer'
     }
+};
+
+let currentLang = localStorage.getItem('language') || 'en';
+
+languageToggle.addEventListener('click', () => {
+    currentLang = currentLang === 'en' ? 'fr' : 'en';
+    localStorage.setItem('language', currentLang);
+    updateLanguage();
+});
+
+// Initialize language
+updateLanguage(); 
+
+// Theme Toggle
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+}
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     
-    setTimeout(typeTitle, 1000);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+    themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -150,5 +266,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitButton.textContent = 'Send Message';
             });
     });
-}); 
+});
 
